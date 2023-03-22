@@ -25,9 +25,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
       appBar: AppBar(
         centerTitle: true,
         title: Text('Drawer de Ayayayaawo'),
@@ -64,26 +66,47 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               leading: Icon(
-                Icons.train,
+                Icons.search,
               ),
               title: const Text('Página 2'),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
-            ListTile(
-              leading: Icon(
+            AboutListTile(
+              // <-- SEE HERE
+              icon: Icon(
                 Icons.info,
               ),
-              title: const Text('Página 3'),
-              onTap: () {
-                Navigator.pop(context);
-              },
+              child: Text('Pagina 3'),
+              applicationIcon: Icon(
+                Icons.info_outline_rounded,
+              ),
+              applicationName: 'Éste es un mensaje de aviso en una lista',
+              applicationVersion: 'Drawer de Yahir V5',
+              applicationLegalese: 'Drawer_V5',
             ),
           ],
         ),
       ),
-      body: Center(),
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 50,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _key.currentState!.openDrawer();
+              },
+              child: const Text(
+                'Botón elevado para el drawer',
+                style: TextStyle(fontSize: 24),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
